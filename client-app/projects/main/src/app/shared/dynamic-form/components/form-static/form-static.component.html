@@ -1,0 +1,6 @@
+<div class="dynamic-field row" [formGroup]="group">
+  <label class="col-form-label" [ngClass]="'col-'+config.labelSize" *ngIf="config.labelSize!==0">{{ config.label }}</label>
+  <div [ngClass]="'col-'+ (12 - (config.labelSize||0))">
+    <input type="text" readonly class="form-control-plaintext form-control-sm" [formControlName]="config.name">
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<csps-version-page-template>
+
+  <ng-container header>
+    Product Feature List 
+    <!-- <span class="gray-text small">subtitle</span> -->
+  </ng-container>
+
+  <ng-container toolbar>
+    <!-- <button type="button" placement="bottom" ngbtooltip="Open Workflow" class="btn btn-sm btn-primary">
+      Test btn 1
+    </button>
+    <button type="button" placement="bottom" ngbtooltip="Manage Versions" class="btn btn-sm btn-primary">
+      Test btn 2
+    </button>
+    <button type="button" placement="bottom" ngbtooltip="Help" class="btn btn-sm btn-primary">
+      Test btn 3
+    </button> -->
+  </ng-container>
+
+  <!-- <ng-container notifications>
+      Alert  / notif
+  </ng-container> -->
+
+
+  <ng-container body>
+    <csps-product-feature-list-table [features]="features" [factories]="featureFactories" [styles]="styles" [dimensions]="dimensions"></csps-product-feature-list-table>
+  </ng-container>
+
+</csps-version-page-template>

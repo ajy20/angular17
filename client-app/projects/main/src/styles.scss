@@ -1,0 +1,144 @@
+/* You can add global styles to this file, and also import other style files */
+@import "custom-theme";
+@import "bootstrap/scss/bootstrap";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// Must set min-height:0 or min-width:0 for the flex-fill to work properly when nesting of flexboxes occurs
+.min-height-0 {
+  min-height: 0;
+}
+
+.min-width-0 {
+  min-width: 0;
+}
+
+// Shortcut for cursor pointer and move
+.pointer {
+  cursor: pointer;
+}
+.move {
+  cursor: move;
+}
+
+// Shortcut for symbol font
+.symbol-font {
+  font-family: 'Segoe UI Symbol';
+  font-size: 100%;
+}
+
+// Vertical Text for table header
+.vertical-header {
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: scale(-1);
+}
+
+// Modal form styles
+.modal-xxl .modal-dialog {
+  max-width: 80%;
+}
+
+.modal-xxxl .modal-dialog {
+  max-width: 90%;
+}
+
+.modal-full-width .modal-dialog {
+  max-width: 100%;
+}
+
+// Create color classes for text, background and borders
+@mixin define-custom-property($name, $value) {
+  #{custom-property-name($name)}: $value;
+}
+
+@each $name,$color in $colors {
+  .#{$name}-text {
+    color: $color !important;
+  }
+
+  .#{$name}-background {
+    background-color: $color !important;
+  }
+
+  .#{$name}-50-background {
+    background-color: rgba( $color,0.5) !important;
+  }
+
+  .#{$name}-border {
+    border-color: $color !important;
+  }
+
+  .#{$name}-50-border {
+    border-color: rgba( $color,0.5) !important;
+  }
+
+  .#{$name}-border-top {
+    border-top-color: $color !important;
+  }
+
+  .#{$name}-50-border-top {
+    border-top-color: rgba( $color,0.5) !important;
+  }
+
+  .#{$name}-border-right {
+    border-right-color: $color !important;
+  }
+
+  .#{$name}-50-border-right {
+    border-right-color: rgba( $color,0.5) !important;
+  }
+
+  .#{$name}-border-bottom {
+    border-bottom-color: $color !important;
+  }
+
+  .#{$name}-50-border--bottom {
+    border--bottom-color: rgba( $color,0.5) !important;
+  }
+
+  .#{$name}-border-left {
+    border-left-color: $color !important;
+  }
+
+  .#{$name}-50-border-left {
+    border-left-color: rgba( $color,0.5) !important;
+  }
+}
+
+@each $name,$color in $grays {
+  .gray-#{$name}-text {
+    color: $color !important;
+  }
+
+  .gray-#{$name}-background {
+    background-color: $color !important;
+  }
+
+  .gray-#{$name}-border {
+    border-color: $color !important;
+  }
+
+  .gray-#{$name}-border-top {
+    border-top-color: $color !important;
+  }
+
+  .gray-#{$name}-border-right {
+    border-right-color: $color !important;
+  }
+
+  .gray-#{$name}-border-bottom {
+    border-bottom-color: $color !important;
+  }
+
+  .gray-#{$name}-border-left {
+    border-left-color: $color !important;
+  }
+}

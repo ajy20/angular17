@@ -1,0 +1,19 @@
+<div class="input-group input-group-sm" (mouseleave)="showDropDown = false">
+  <input type="text" class="form-control form-control-sm" [placeholder]="placeholder" [disabled]="isDisabled" readonly [(ngModel)]="model" (click)="toggleDropDown()" />
+  <div class="drop-show" *ngIf="showDropDown">
+    <label>
+      <div class="input-filter mx-auto">
+        <input type="text" class="w-100" placeholder="Filter" [(ngModel)]="filterValue" (input)="filterOptions($any($event.target).value)" />
+        <span class="clear-icon" (click)="clearFilterInput()">&#x2716;</span>
+      </div>
+    </label>
+    <label>
+      <input type="checkbox" [(ngModel)]="selectAllCheckbox" (change)="toggleSelectAll()" />
+      <span>Select All</span>
+    </label>
+    <label *ngFor="let o of filteredOptions">
+      <input type="checkbox" [(ngModel)]="o.selected" (change)="addOrRemove(o)" />
+      <span>{{ o.value }}</span>
+    </label>
+  </div>
+</div>

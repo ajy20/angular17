@@ -1,0 +1,99 @@
+<header class="navbar navbar-expand navbar-dark bg-primary px-4 flex-column flex-md-row">
+  <a class="navbar-brand me-md-2 me-0" routerLink="'.'" aria-label="CSPS" (click)="navbarCollapsed = true">
+    <svg class="align-middle"
+         xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         width="36"
+         height="36"
+         viewBox="0 0 512 512"
+         [routerLink]="['/home']">
+      <defs>
+        <linearGradient id="a">
+          <stop offset="0" stop-color="#0143a3"></stop>
+          <stop offset="1" stop-color="#0273d4"></stop>
+        </linearGradient>
+        <linearGradient id="b" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.33396, 0, 0, 1.33396, 391.773255, -808.022022)" x1="-111" y1="967.862" x2="-110.5" y2="617.362" xlink:href="#a"></linearGradient>
+      </defs>
+      <path d="M 243.434 16.412 L 450.504 97.638 L 430.484 370.491 L 244.577 483.751 L 57.527 369.347 L 38.08 98.209 L 243.434 16.412 Z" fill="url(#b)" fill-rule="evenodd" stroke="#fff" stroke-width="20"></path>
+      <text style="fill: rgb(248, 245, 245); font-family: Arial, sans-serif; font-size: 16px; white-space: pre;" transform="matrix(16.112854, 0, 0, 16.503521, -2039.469849, -1303.556396)" x="135.845" y="99.315">C</text>
+    </svg>
+    <span class="ms-2 d-xl-none d-lg-none d-md-none d-inline" [routerLink]="['/home']">CSPS</span>
+  </a>
+
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/home']" (click)="navbarCollapsed = true">{{"Home" | translate}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/products']" (click)="navbarCollapsed = true">{{'TOPMENU.PRODUCTS' | translate}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/work']" (click)="navbarCollapsed = true">{{"Work" | translate}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/documentation']" (click)="navbarCollapsed = true">{{"Documentation" | translate}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/admin']" (click)="navbarCollapsed = true">{{"Admin" | translate}}</a>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="navbar-nav flex-row ms-md-auto">
+    <li ngbDropdown class="nav-item">
+      <button type="button" class="nav-link cursor-pointer" ngbDropdownToggle><fa-icon [icon]="themeIcon"></fa-icon></button>
+      <div ngbDropdownMenu class="dropdown-menu dropdown-menu-md-end">
+        <button ngbDropdownItem class="cursor-pointer" (click)="setTheme('light')"><fa-icon [icon]="faSun"></fa-icon> Light Theme</button>
+        <button ngbDropdownItem class="cursor-pointer" (click)="setTheme('dark')"><fa-icon [icon]="faMoon"></fa-icon> Dark Theme</button>
+      </div>
+    </li>
+
+    <li ngbDropdown class="nav-item">
+      <button type="button" class="nav-link cursor-pointer" ngbDropdownToggle>
+        <img [class]="'mb-1 flag flag-' + (selectedLanguage$ | async)?.flag" /> {{((selectedLanguage$ | async)?.name || '') | translate}}
+      </button>
+      <div ngbDropdownMenu class="dropdown-menu dropdown-menu-md-end">
+        <button ngbDropdownItem class="cursor-pointer" (click)="setLanguage(lang)" *ngFor="let lang of languages"><img [class]="'flag flag-' + lang.flag" /> {{lang.name | translate}}</button>
+        <div class="dropdown-divider"></div>
+        <p class="text-muted small mb-0 ps-1">
+          Translation support is still an experimental feature
+        </p>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <button type="button" class="nav-link cursor-pointer" placement="bottom-right" container="body" [ngbPopover]="popContent"><fa-icon [icon]="faUser"></fa-icon></button>
+    </li>
+  </ul>
+
+  <button class="navbar-toggler navbar-toggler-right"
+          type="button"
+          (click)="navbarCollapsed = !navbarCollapsed"
+          [attr.aria-expanded]="!navbarCollapsed"
+          aria-controls="navbarContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+    &#9776;
+  </button>
+</header>
+
+<ng-template #popContent>
+  <div class="card border-0 p-0">
+    <div class="card-body pt-0 d-flex flex-column align-items-center">
+      <h2><fa-icon [icon]="faCircleUser"></fa-icon></h2>
+      <span>{{authenticatedUser?.name}}</span>
+    </div>
+    <div class="card-body px-0 d-flex flex-column align-items-s border-top">
+      <ul class="list-unstyled">
+        <li><button ngbDropdownItem class="cursor-pointer"><fa-icon [icon]="faSun" [fixedWidth]="true"></fa-icon> Default Theme</button></li>
+        <li><button ngbDropdownItem class="cursor-pointer"><fa-icon [icon]="faGlobe" [fixedWidth]="true"></fa-icon> Default Language</button></li>
+        <li><button ngbDropdownItem class="cursor-pointer"><fa-icon [icon]="faEnvelope" [fixedWidth]="true"></fa-icon> Notifications (5)</button></li>
+        <li><button ngbDropdownItem class="cursor-pointer"><fa-icon [icon]="faCog" [fixedWidth]="true"></fa-icon> Etc...</button></li>
+      </ul>
+    </div>
+    <div class="card-body pb-0 pt-3 border-0 border-top">
+      <button class="btn btn-sm btn-secondary w-100">Logout</button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,10 @@
+<div class="dynamic-field row" [formGroup]="group">
+  <label class="col-form-label" [ngClass]="'col-'+config.labelSize" *ngIf="config.labelSize!==0">{{ config.label }}</label>
+  <div [ngClass]="'col-'+ (12 - (config.labelSize||0))">
+    <div class="custom-file input-group-sm">
+      <input type="file" class="custom-file-input cursor-pointer" id="customFile" [formControlName]="config.name" (change)="onFileChange($event)">
+      <label class="custom-file-label" for="customFile">{{label}}</label>
+      <div class="invalid-feedback">Invalid message!</div>
+    </div>
+  </div>
+</div>

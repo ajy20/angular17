@@ -1,0 +1,136 @@
+<div class="row g-0 toolbar" [ngClass]="{arrowed:anySelected, draggable: draggableRows}">
+  <div class="col py-2 px-3" *ngIf="!anySelected"></div>
+  <div class="col py-2 px-3" *ngIf="anySelected">
+    <ng-container *ngFor="let control of toolbar?.left">
+      <button *ngIf="control.type === 'button'" type="button" class="btn btn-sm btn-link white-text" (click)="batchMethod(control)">{{control.name}}</button>
+
+      <div class="btn-group" *ngIf="control.type === 'splitButton'">
+        <button type="button" class="btn btn-sm btn-link white-text" (click)="batchMethod(control)"><fa-icon *ngIf="control.icon" [icon]="control.icon" [fixedWidth]="true"></fa-icon> {{control.name}}</button>
+        <div class="btn-group" ngbDropdown placement="bottom-right">
+          <button class="btn btn-sm dropdown-toggle-split btn-link white-text" ngbDropdownToggle></button>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let item of control.controls" (click)="batchMethod(item)">{{item.name}}</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dropdown d-inline-block" *ngIf="control.type === 'dropdown'" ngbDropdown placement="bottom-left">
+        <button class="btn btn-sm white-text" ngbDropdownToggle>{{control.name}}&nbsp;</button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <button ngbDropdownItem *ngFor="let item of control.controls" (click)="batchMethod(item)">{{item.name}}</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="col-auto py-2 mx-1" *ngFor="let control of toolbar?.right">
+    <button *ngIf="control.type === 'button'" type="button" class="btn btn-sm" [ngClass]="{'btn-link white-text border': anySelected, 'btn-primary': !anySelected}" (click)="control.callback()"><fa-icon *ngIf="control.icon" [icon]="control.icon" [fixedWidth]="true"></fa-icon> {{control.name}}</button>
+
+    <div class="btn-group" *ngIf="control.type === 'splitButton'">
+      <button type="button" class="btn btn-sm" [ngClass]="{'btn-link white-text border': anySelected, 'btn-primary': !anySelected}" (click)="control.callback()"><fa-icon *ngIf="control.icon" [icon]="control.icon" [fixedWidth]="true"></fa-icon> {{control.name}}</button>
+      <div class="btn-group" ngbDropdown placement="bottom-right">
+        <button class="btn btn-sm dropdown-toggle-split" [ngClass]="{'btn-link white-text border': anySelected, 'btn-primary': !anySelected}" ngbDropdownToggle></button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <button ngbDropdownItem *ngFor="let item of control.controls" (click)="item.callback()">{{item.name}}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dropdown d-inline-block" *ngIf="control.type === 'dropdown'" ngbDropdown placement="bottom-right">
+      <button class="btn btn-sm" [ngClass]="{'btn-link white-text border': anySelected, 'btn-primary': !anySelected}" ngbDropdownToggle>{{control.name}}&nbsp;</button>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <button ngbDropdownItem *ngFor="let item of control.controls" (click)="item.callback()">{{item.name}}</button>
+      </div>
+    </div>
+
+    <div *ngIf="control.type === 'search'" class="input-group">
+      <input type="search" placeholder="Search..." class="form-control form-control-sm" [(ngModel)]="searchText" (input)="searchSubject$.next($any($event.target).value)" />
+      <div class="input-group-append">
+        <button class="btn btn-sm" [ngClass]="{'btn-link white-text border': anySelected, 'btn-primary': !anySelected}" type="button" (click)="findPrevious()"><fa-icon [icon]="faCaretUp" [fixedWidth]="true"></fa-icon></button>
+        <button class="btn btn-sm" [ngClass]="{'btn-link white-text border': anySelected, 'btn-primary': !anySelected}" type="button" (click)="findNext()"><fa-icon [icon]="faCaretDown" [fixedWidth]="true"></fa-icon></button>
+      </div>
+    </div>
+
+    <button *ngIf="control.type === 'filter'" type="button" class="btn btn-sm" [ngClass]="{'btn-link white-text border': anySelected, 'btn-primary': !anySelected}" (click)="toggleFilterRow()"><fa-icon [icon]="faFilter" [fixedWidth]="true"></fa-icon> Filter</button>
+
+    <button *ngIf="control.type === 'excel'" type="button" class="btn btn-sm" [ngClass]="{'btn-link white-text border': anySelected, 'btn-primary': !anySelected}" (click)="exportToExcel()"><fa-icon [icon]="faFileExcel" [fixedWidth]="true"></fa-icon> Export to Excel</button>
+    <button *ngIf="control.type === 'pdf'" type="button" class="btn btn-sm" [ngClass]="{'btn-link white-text border': anySelected, 'btn-primary': !anySelected}" (click)="exportToPdf()"><fa-icon [icon]="faFilePdf" [fixedWidth]="true"></fa-icon> Export to Pdf</button>
+
+  </div>
+</div>
+
+<virtual-scroller #scroll [items]="filteredRows">
+  <table class="table table-sm table-hover">
+    <thead #header>
+      <!-- First header row -->
+      <tr>
+        <th class="small text-center fit bg-primary" *ngIf="draggableRows"></th>
+        <th class="small text-center fit bg-primary" *ngIf="expandableRows || selectableRows || errors">
+          <fa-icon class="pointer" [ngClass]="{invisible:!expandableRows}" (click)="toggleExpansionAll()" [icon]="allExpandedIcon" [fixedWidth]="true"></fa-icon>
+          <fa-icon class="pointer" [ngClass]="{invisible:!selectableRows}" (click)="toggleSelectionAll()" [icon]="allSelectedIcon" [fixedWidth]="true"></fa-icon>
+          <fa-icon [icon]="faExclamationCircle" [fixedWidth]="true" [ngClass]="{invisible:!errors}"></fa-icon>
+        </th>
+        <th class="small bg-primary fw-light text-white" [ngClass]="col.columnClass + ' text-'+col.cellAlignment" *ngFor="let col of spanningColumns" [attr.colspan]="col.colspan">{{col.label}}</th>
+      </tr>
+      <!-- Filter row -->
+      <tr *ngIf="showFilterRow">
+        <th class="small text-center fit" *ngIf="draggableRows"></th>
+        <th class="small text-center fit" *ngIf="expandableRows || selectableRows || errors"></th>
+        <th class="small text-center" *ngFor="let col of columns; index as i">
+          <input *ngIf="col.filterMode==='text'" class="w-100 text-center" type="search" [ngModel]="col.filterText" (input)="processFilterValue(col,$any($event.target).value)" />
+
+          <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown" *ngIf="col.filterMode==='select'|| col.filterMode==='numeric' || col.filterMode==='icon'" autoClose="outside">
+            <input class="w-100 text-center" type="search" [ngModel]="col.filterText" readonly ngbDropdownAnchor (focus)="myDrop.open()" />
+            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+              <button class="small" ngbDropdownItem (click)="toggleSelectAllFilterValues(col)">
+                <fa-icon class="pointer" *ngIf="col.filterStatus ==='all'" [icon]="faCheckSquare" [fixedWidth]="true"></fa-icon>
+                <fa-icon class="pointer" *ngIf="col.filterStatus ==='none'" [icon]="faSquare" [fixedWidth]="true"></fa-icon>
+                <fa-icon class="pointer" *ngIf="col.filterStatus ==='indeterminate'" [icon]="faMinusSquare" [fixedWidth]="true"></fa-icon>
+                Select All
+              </button>
+              <div class="dropdown-divider"></div>
+              <div class="overflow-auto" style="max-height:250px;">
+                <button class="small" ngbDropdownItem *ngFor="let v of col.filterValues" (click)="toggleFilterValue(col,v)">
+                  <fa-icon class="pointer" *ngIf="v.selected" [icon]="faCheckSquare" [fixedWidth]="true"></fa-icon>
+                  <fa-icon class="pointer" *ngIf="!v.selected" [icon]="faSquare" [fixedWidth]="true"></fa-icon>
+                  <div class="d-inline-block" *ngIf="col.filterMode==='icon'">
+                    <i class="ps-1 fa fa-{{v.value}}" aria-hidden="true"></i>
+                  </div>
+                  <div class="d-inline-block" *ngIf="col.filterMode!=='icon'">
+                    {{v.value}}
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <!-- Body -->
+    <tbody #container [cdkDropListData]="filteredRows" cdkDropList [cdkDropListDisabled]="!draggableRows" (cdkDropListDropped)="drop($any($event))" [cdkDropListSortPredicate]="sortPredicate">
+      <tr *ngFor="let row of scroll.viewPortItems" [ngClass]="row.class" cdkDrag [cdkDragData]="row">
+        <td class="small text-center align-middle" *ngIf="draggableRows">
+          <fa-icon cdkDragHandle [icon]="faGripVertical" [fixedWidth]="true"></fa-icon>
+        </td>
+        <td class="small text-center align-middle" *ngIf="expandableRows || selectableRows || errors">
+          <fa-icon class="pointer" [ngClass]="{invisible:!row.expandable}" (click)="toggleExpansion(row)" [icon]="row.expandedIcon" [fixedWidth]="true"></fa-icon>
+          <fa-icon class="pointer" [ngClass]="{invisible:!row.selectable}" (click)="toggleRowSelection(row)" [icon]="row.selectedIcon" [fixedWidth]="true"></fa-icon>
+          <fa-icon [icon]="faExclamationCircle" [fixedWidth]="true" [ngClass]="{invisible:!row.error}"></fa-icon>
+        </td>
+
+        <td class="small align-middle text-nowrap" [ngClass]="['text-'+cell.alignment, cell.class]" *ngFor="let cell of row.cells; let i= index" [attr.colspan]="cell.colspan">
+          <ng-container *ngIf="cell.type === 'icon' && cell.value"><fa-icon [icon]="cell.value" [fixedWidth]="true" (click)="cell.click()" [ngClass]="[cell.canClick? 'pointer':'']"></fa-icon></ng-container>
+          <ng-container *ngIf="cell.type === 'text'"><span (click)="cell.click()" [ngClass]="[cell.canClick? 'pointer':'']" [innerHTML]="cell.value | highlight: searchText"></span></ng-container>
+          <ng-container *ngIf="cell.type === 'picture'"><img [src]="cell.value | secure | async" (click)="cell.click()" [ngClass]="[cell.canClick? 'pointer':'']"></ng-container>
+          <ng-container *ngIf="cell.type === 'button'"><span *ngIf="cell.value" (click)="cell.click()" class="blue-background p-1 white-text pointer" [innerHTML]="cell.value"></span></ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</virtual-scroller>
+
+<div class="row g-0 border-top">
+  <div class="col">
+    <span class="small">Showing {{filteredRows.length || 0}} rows out of {{rows.length || 0}} </span>
+    <span class="small" *ngIf="anySelected">| {{selectedRowCounter}} rows selected</span>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<csps-page-wrapper>
+  <ng-container body>
+    <csps-page-template [subMenu]="subMenu">
+
+      <span header>{{project.name}}</span>
+
+      <ng-container body>
+        <router-outlet></router-outlet>
+      </ng-container>
+
+    </csps-page-template>
+  </ng-container>
+</csps-page-wrapper>

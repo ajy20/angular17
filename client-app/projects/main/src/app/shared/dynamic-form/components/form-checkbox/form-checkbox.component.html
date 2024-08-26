@@ -1,0 +1,11 @@
+<div class="dynamic-field row" [formGroup]="group">
+    <label class="col-form-label" [ngClass]="'col-'+config.labelSize" *ngIf="config.labelSize!==0"></label>
+    <div [ngClass]="'col-'+ (12 - (config.labelSize||0))">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" [id]="config.name" [formControlName]="config.name">
+        <label class="form-check-label" [for]="config.name">
+          {{ config.label }}
+        </label>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+input {
+  cursor: default;
+  background-color: #FFF !important;
+}
+
+input:disabled{
+  background-color: #e9ecef!important;
+}
+
+.drop-show {
+  position: absolute;
+  top: calc(1.5em + 0.5rem - 1px);
+  width: 100%;
+  padding: 4px;
+  background-color: #FFF;
+  border: 1px solid #BABABA;
+  z-index: 100;
+  -webkit-box-shadow: 0 6px 10px rgba(0,0,0,.15);
+  -moz-box-shadow: 0 6px 10px rgba(0,0,0,.15);
+  box-shadow: 0 6px 10px rgba(0,0,0,.15);
+  margin-left: 1px;
+  overflow-y: auto;
+  max-height: 50vh;
+}
+
+.drop-show label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 15px;
+  cursor: pointer;
+ }
+
+.drop-show label input {
+  margin-right: 5px;
+}
+
+.input-filter {
+  position: relative;
+  width: 99%;
+}
+
+.input-filter input {
+  border: 1px solid #d9cfcf;
+}
+
+.clear-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

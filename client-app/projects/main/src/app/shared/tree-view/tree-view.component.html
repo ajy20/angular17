@@ -1,0 +1,79 @@
+<cdk-tree #tree
+          [dataSource]="dataSource"
+          [treeControl]="treeControl"
+          cdkDropList
+          (cdkDropListDropped)="drop($event)"
+          class="example-tree">
+
+  <!-- This is the tree node template for leaf nodes -->
+  <cdk-tree-node *cdkTreeNodeDef="let node">
+    <li class="list-group-item">
+      <div class="d-flex align-items-center custom-dropdown" ngbDropdown placement="bottom-right">
+        <!-- Drag handle -->
+        <button cdkDragHandle cdkDrag *ngIf="options.allowDrag"
+                [cdkDragDisabled]="!options.allowDrag"
+                [cdkDragData]="node"
+                (mouseenter)="dragHover(node)"
+                (mouseleave)="dragHoverEnd()"
+                (cdkDragStarted)="dragStart()"
+                (cdkDragReleased)="dragEnd()"
+                class="btn btn-sm">
+          <!-- Use a hamburger icon or any other icon as the drag handle -->
+          <fa-icon [icon]="faBars" [fixedWidth]="true"></fa-icon>
+        </button>
+        <!-- Node content -->
+        <fa-icon *ngIf="node.icon" class="me-1" [icon]="node.icon" [fixedWidth]="true"></fa-icon>
+        <span class="pointer" (click)="processClick(node)">{{node.name}}</span>
+        <!-- Options button -->
+        <button class="cursor-pointer btn btn-sm ms-auto" ngbDropdownToggle *ngIf="node.contextMenu && node.contextMenu.length">
+          <fa-icon [icon]="faEllipsisV" [fixedWidth]="true"></fa-icon>
+        </button>
+        <div ngbDropdownMenu class="dropdown-menu">
+          <button ngbDropdownItem class="cursor-pointer btn btn-sm" *ngFor="let m of node.contextMenu" (click)="m.callback(node.data)">{{m.text}}</button>
+        </div>
+      </div>
+    </li>
+  </cdk-tree-node>
+
+  <!-- This is the tree node template for expandable nodes -->
+  <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild">
+    <li class="list-group-item">
+      <div class="d-flex align-items-center custom-dropdown" ngbDropdown placement="bottom-right">
+        <!-- Drag handle -->
+        <button cdkDragHandle cdkDrag *ngIf="options.allowDrag"
+                [cdkDragDisabled]="!options.allowDrag"
+                [cdkDragData]="node"
+                (mouseenter)="dragHover(node)"
+                (mouseleave)="dragHoverEnd()"
+                (cdkDragStarted)="dragStart()"
+                (cdkDragReleased)="dragEnd()"
+                class="btn btn-sm">
+          <!-- Use a hamburger icon or any other icon as the drag handle -->
+          <fa-icon [icon]="faBars" [fixedWidth]="true"></fa-icon>
+        </button>
+        <!-- Node toggle button -->
+        <button cdkTreeNodeToggle [attr.aria-label]="'toggle ' + node.name" class="btn btn-sm px-0" [ngClass]="{'ms-n125': node.level>1}" (click)="expansionModel.toggle(node.id)">
+          <fa-icon [icon]="treeControl.isExpanded(node) ? faCaretDown : faCaretRight" [fixedWidth]="true"></fa-icon>
+        </button>
+        <!-- Node name -->
+        <span class="example-tree-node-name flex-grow-1 fw-bold">
+          <fa-icon *ngIf="node.icon" class="me-1" [icon]="node.icon" [fixedWidth]="true"></fa-icon>
+          {{node.name}}
+        </span>
+        <!-- Options button -->
+        <button class="cursor-pointer btn btn-sm" ngbDropdownToggle *ngIf="node.contextMenu && node.contextMenu.length">
+          <fa-icon [icon]="faEllipsisV" [fixedWidth]="true"></fa-icon>
+        </button>
+        <div ngbDropdownMenu class="dropdown-menu">
+          <button ngbDropdownItem class="cursor-pointer btn btn-sm" *ngFor="let m of node.contextMenu" (click)="m.callback(node.data)">{{m.text}}</button>
+        </div>
+      </div>
+
+      <!-- Nested tree nodes -->
+      <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)" [ngClass]="{'ms-n125': node.level>1}">
+        <ng-container cdkTreeNodeOutlet></ng-container>
+      </ul>
+    </li>
+  </cdk-nested-tree-node>
+</cdk-tree>
+

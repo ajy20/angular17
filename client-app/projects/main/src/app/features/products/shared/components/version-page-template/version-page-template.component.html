@@ -1,0 +1,40 @@
+<csps-page-template>
+
+  <ng-container header>
+    <ng-content select="[header]"></ng-content>
+  </ng-container>
+
+  <ng-container toolbar>
+    <button type="button" class="btn btn-sm btn-link" placement="bottom" ngbTooltip="Process Anomalies" (click)="openAnomaliesManager()" *ngIf="anomalies.length">
+      <fa-icon class="text-danger pointer" [icon]="faBroom" [fixedWidth]="true"></fa-icon>
+    </button>
+    <!-- <button *ngIf="!selectedVersion.released && (canRename || canChangeReference)" type="button" class="btn btn-sm btn-link" placement="bottom" ngbTooltip="Rename document" (click)="openRenameDocument()">
+      <fa-icon class="text-primary pointer" [icon]="faPen" [fixedWidth]="true"></fa-icon>
+    </button> -->
+    <button type="button" class="btn btn-sm btn-link" placement="bottom" ngbTooltip="Open Workflow" (click)="openWorkflow()">
+      <fa-icon class="text-primary pointer" [icon]="faSitemap" [fixedWidth]="true"></fa-icon>
+    </button>
+    <button type="button" class="btn btn-sm btn-link" placement="bottom" ngbTooltip="Manage Versions" (click)="openVersionManager()">
+      <fa-icon class="text-primary pointer" [icon]="faCodeBranch" [fixedWidth]="true"></fa-icon>
+    </button>
+    <button type="button" class="btn btn-sm btn-link" placement="bottom" ngbTooltip="Help" (click)="help()">
+      <fa-icon class="text-primary pointer" [icon]="faQuestionCircle" [fixedWidth]="true"></fa-icon>
+    </button>
+    <ng-content select="[toolbar]"></ng-content>
+  </ng-container>
+
+  <!-- <ng-container notifications>
+    <ngb-alert #readOnlyModeNotification type="danger" class="py-2 px-3">
+      <ng-content select="[notifications]"></ng-content>
+    </ngb-alert>
+  </ng-container> -->
+
+  <ng-container body>
+    <ng-content select="[body]"></ng-content>
+  </ng-container>
+
+  <ng-container footer>
+    <ng-content select="[footer]"></ng-content>
+  </ng-container>
+
+</csps-page-template>

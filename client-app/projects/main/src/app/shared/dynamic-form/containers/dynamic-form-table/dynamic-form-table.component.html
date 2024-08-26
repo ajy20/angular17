@@ -1,0 +1,45 @@
+<table class="table table-sm table-striped" [formGroup]="form">
+  <thead>
+    <tr>
+      <th class="text-center">#</th>
+      <th class="text-center" *ngFor="let field of config">{{field.label}}</th>
+      <th class="text-center">Error</th>
+      <th *ngIf="!hideDeleteOption" class="text-center"><fa-icon [icon]="faTrash"></fa-icon></th>
+    </tr>
+  </thead>
+  <tbody formArrayName="rows">
+    <tr *ngFor="let row of rows.controls; let rowIndex=index" [formGroupName]="rowIndex">
+      <td class="text-center">{{rowIndex+1}}</td>
+      <td class="text-center" *ngFor="let field of config;">
+        <ng-container class="form-control-sm" dynamicField [config]="field" [group]="$any(rows).controls[rowIndex]"></ng-container>
+      </td>
+      <td class="text-center pt-2"><fa-icon [icon]="faExclamationTriangle" class="red-text pointer" placement="top" container="body" #t="ngbTooltip" (mouseover)="toggleErrorTooltip(t, $any(row))" [ngbTooltip]="errorTipContent" *ngIf="!row.valid"></fa-icon></td>
+      <td class="text-center pt-2 pointer" *ngIf="!hideDeleteOption"><fa-icon [icon]="faTimes" (click)="deleteRow(rowIndex)"></fa-icon></td>
+    </tr>
+
+    <tr *ngIf="!hideAddRowOption">
+      <td class="text-center pointer"><fa-icon [icon]="faPlus" (click)="addRow()"></fa-icon></td>
+      <td class="text-center" *ngFor="let field of config;"></td>
+      <td class="text-center"></td>
+      <td class="text-center"></td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-container *ngIf="!hidePasteArea">
+  <div class="row mt-5">
+    <div class="col">
+      <strong>To paste data from Excel, please use the space below. (Dates must be in the following format: YYYY-MM-DD)</strong>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <input type="text" class="form-control" [(ngModel)]="pastedText" placeholder="Right click here to paste" (paste)="processPaste($event)">
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #errorTipContent let-errors="errors">
+  <div *ngFor="let e of errors">{{e}}</div>
+</ng-template>

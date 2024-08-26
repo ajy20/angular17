@@ -1,0 +1,6 @@
+<div class="dynamic-field row" [formGroup]="group">
+  <label class="col-form-label" [ngClass]="'col-'+config.labelSize" *ngIf="config.labelSize!==0">{{ config.label }}</label>
+  <div [ngClass]="'col-'+ (12 - (config.labelSize||0))">
+    <multi-select-list class="d-flex flex-wrap" [formControlName]="config.name" [placeholder]="config.placeholder || 'Select...'" [options]="config.options || []"></multi-select-list>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="row border-bottom justify-content-between align-items-center py-3">
+  <div class="col">
+    <h2 class="mb-0"><ng-content select="[header]"></ng-content></h2>
+  </div>
+  <div class="col-auto">
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <ng-content select="[toolbar]"></ng-content>
+    </div>
+  </div>
+</div>
+<div class="row flex-fill overflow-auto">
+  <div class="col h-100 d-flex flex-column">
+    <ul class="nav nav-tabs mb-3 submenu" *ngIf="subMenu?.length">
+      <li class="nav-item" *ngFor="let subMenuItem of subMenu">
+        <a class="nav-link cursor-pointer" [routerLinkActive]="['active']" [routerLink]="subMenuItem.route">
+          {{subMenuItem.name}}
+        </a>
+      </li>
+    </ul>
+    <ng-content select="[notifications]"></ng-content>
+    <ng-content select="[body]"></ng-content>
+  </div>
+</div>
+<div class="row justify-content-end gray-200-background">
+  <div class="col-auto">
+    <ng-content select="[footer]"></ng-content>
+  </div>
+</div>

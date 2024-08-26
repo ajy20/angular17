@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.submenu .nav-link {
+  border: 0;
+  cursor: pointer;
+  color: var(--bs-heading-color);
+
+  &.active {
+    border-bottom: 3px solid rgba(var(--bs-primary-rgb));
+  }
+}

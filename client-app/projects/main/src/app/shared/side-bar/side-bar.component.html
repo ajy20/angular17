@@ -1,0 +1,92 @@
+<div class="sidebar d-flex flex-column">
+  <ul class="nav flex-column border-bottom">
+    <li class="nav-item d-flex justify-content-between" *ngIf="!isSearched">
+      <a class="nav-link" [ngClass]="{'px-2':collapsed}">
+        <span *ngIf="!collapsed" class="text-capitalize fw-bold"> {{header}}</span>
+        <span *ngIf="collapsed" class="text-capitalize fw-bold"> {{header | shorten:4}}</span>
+      </a>
+      <div>
+        <a class="nav-link d-inline-block pointer pe-0" *ngIf="!collapsed">
+          <fa-icon [icon]="faSearch" [fixedWidth]="true" (click)="triggerSearch()"></fa-icon>
+        </a>
+        <a class="nav-link d-inline-block pointer" *ngIf="!collapsed">
+          <fa-icon [icon]="faIndent" [fixedWidth]="true" (click)="expandAllNodes()" *ngIf="!allExpanded"></fa-icon>
+          <fa-icon [icon]="faOutdent" [fixedWidth]="true" (click)="collapseAllNodes()" *ngIf="allExpanded"></fa-icon>
+        </a>
+      </div>
+    </li>
+
+    <li class="nav-item d-flex justify-content-between" *ngIf="isSearched && !collapsed">
+      <input type="search" #search class="form-control form-control-sm my-1 ms-2" placeholder="Search..." [(ngModel)]="filterText" (input)="filterSubject$.next($any($event.target)?.value)">
+      <a class="nav-link pointer">
+        <fa-icon [icon]="faTimes" [fixedWidth]="true" (click)="resetSearch()"></fa-icon>
+      </a>
+    </li>
+  </ul>
+
+  <ul class="nav flex-column border-bottom py-2" *ngIf="quickLinks?.length">
+    <li class="nav-item d-flex justify-content-around" [ngClass]="{'flex-wrap':!collapsed, 'flex-column align-items-center':collapsed }">
+      <a *ngFor="let quickLink of quickLinks" class="pointer" (click)="processQuickLinkClick(quickLink)">
+        <span *ngIf="!collapsed" class="badge fw-normal" [ngClass]="{'text-bg-primary': quickLink.active, 'text-bg-secondary': !quickLink.active}">{{quickLink.label}}</span>
+        <span *ngIf="collapsed" class="badge fw-normal" [ngClass]="{'text-bg-primary': quickLink.active, 'text-bg-secondary': !quickLink.active}" placement="right" container="body" [ngbTooltip]="quickLink.label">{{quickLink.abbreviation}}</span>
+      </a>
+    </li>
+  </ul>
+
+  <ul class="nav flex-column overflow-auto" [ngClass]="{'small': compactMode}">
+    <ng-container *ngIf="collapsed">
+      <li class="nav-item" *ngFor="let menuItem of filteredMenuItems">
+        <ng-template #submenus>
+          <ul class="nav flex-column">
+            <li class="fw-bold">{{menuItem.label}}</li>
+            <li class="nav-item" *ngFor="let subMenu of menuItem.children">
+              <a class="nav-link pointer" [ngClass]="{active: subMenu.active}" (click)="menuItemClicked(subMenu)">
+                <fa-icon [icon]="subMenu.icon || faDefaultIcon" [fixedWidth]="true"></fa-icon>
+                {{subMenu.label}}
+              </a>
+            </li>
+          </ul>
+        </ng-template>
+        <a class="nav-link" *ngIf="collapsed" [stickyPopover]="submenus" [openDelay]="300" triggers="mouseenter:mouseleave" placement="right" container="body">
+          <fa-icon [icon]="menuItem.icon || faDefaultIcon" [fixedWidth]="true"></fa-icon>
+          <span *ngIf="!collapsed"> {{menuItem.label}}</span>
+        </a>
+      </li>
+    </ng-container>
+
+    <li class="nav-item" *ngIf="!collapsed">
+      <csps-tree-view [dataSource]="treeviewNodes" [options]="options" (onNodeMoved)="change($event)" (onNodeSelected)="showItem($event)"></csps-tree-view>
+    </li>
+  </ul>
+
+  <ul class="nav flex-column mb-2 mt-auto pt-2 border-top" *ngIf="stickyMenuItems.length>0">
+    <li class="nav-item d-flex justify-content-between" *ngFor="let m of stickyMenuItems; last as isLast">
+      <a class="nav-link pointer" [routerLink]="m.route" (click)="processClick(m)">
+        <fa-icon *ngIf="m.icon" [icon]="m.icon" [fixedWidth]="true"></fa-icon>
+        <span *ngIf="!collapsed"> {{m.label}}</span>
+      </a>
+      <a class="nav-link pointer" (click)="toggleSideBar()" *ngIf="!collapsed && isLast">
+        <fa-icon [icon]="faChevronLeft" [fixedWidth]="true"></fa-icon>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="collapsed">
+      <a class="nav-link pointer" (click)="toggleSideBar()">
+        <fa-icon [icon]="faChevronRight" [fixedWidth]="true"></fa-icon>
+      </a>
+    </li>
+  </ul>
+  <ul class="nav flex-column mb-2 mt-auto pt-2 border-top" *ngIf="!stickyMenuItems.length">
+    <li class="nav-item d-flex justify-content-between" *ngIf="!collapsed">
+      <a class="nav-link"></a>
+      <a class="nav-link pointer" (click)="toggleSideBar()">
+        <fa-icon [icon]="faChevronLeft" [fixedWidth]="true"></fa-icon>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="collapsed">
+      <a class="nav-link pointer" (click)="toggleSideBar()">
+        <fa-icon [icon]="faChevronRight" [fixedWidth]="true"></fa-icon>
+      </a>
+    </li>
+  </ul>
+</div>
+

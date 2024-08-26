@@ -1,0 +1,5 @@
+<form class="dynamic-form needs-validation" [formGroup]="form" (submit)="handleSubmit($event)" novalidate>
+  <ng-container *ngFor="let field of config;" dynamicField [config]="field" [group]="form"></ng-container>
+
+  {{form.value | json}}
+</form>

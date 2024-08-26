@@ -1,0 +1,29 @@
+<div cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="epics" class="epic-list" (cdkDropListDropped)="drop($event)">
+  @for (epic of epics; track epic.id) {
+  <div cdkDropListGroup class="epic-box" cdkDrag [cdkDragData]="group">
+    <div class="epic-header">
+      <h5>{{epic.name}}</h5>
+      <fa-icon class="pointer" [icon]="faEdit" (click)="editEpic(epic)"></fa-icon>
+    </div>
+
+    @for (programIncrement of actualProgramIncrements; track programIncrement.id) {
+    <div class="feature-list-container">
+      <div class="feature-list" cdkDropList [id]="epic.id + programIncrement.id" [cdkDropListData]="featuresByEpicAndProgramIncrement[epic.id]?.[programIncrement.id]" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="getConnectedList()">
+        <div class="feature-placeholder" *ngIf="!featuresByEpicAndProgramIncrement[epic.id]?.[programIncrement.id].length">Drop feature here</div>
+        @for (feature of featuresByEpicAndProgramIncrement[epic.id]?.[programIncrement.id]; track feature.id) {
+        <div class="feature-box" cdkDrag [cdkDragData]="feature" (click.double)="openFeature(feature)">
+          {{feature.name}}
+        </div>
+        }
+      </div>
+      <div class="feature-adder" (click)="addFeatureToEpicAndProgramIncrement(epic.id,programIncrement.id)">+</div>
+    </div>
+    }
+  </div>
+  }
+</div>
+
+
+{{epics|json}}
+<br />
+{{featuresByEpicAndProgramIncrement|json}}

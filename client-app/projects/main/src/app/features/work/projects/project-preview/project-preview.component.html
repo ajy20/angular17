@@ -1,0 +1,125 @@
+<div class="row py-3 flex-fill gray-200-background">
+  <div class="col-12 col-xl-6 d-flex">
+    <div class="row g-3 flex-fill">
+      <div class="col-12">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-fill flex-column">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="mb-1">Project Scope</h5>
+              </div>
+              <h4>TBA</h4>
+            </div>
+            <div class="d-flex flex-fill">
+              Describe project scope and projet phases
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="mb-2">Project Timeline and Milestones</h5>
+                <h6 class="text-body-tertiary">TBA</h6>
+              </div>
+            </div>
+            <div class="d-flex pt-3 flex-fill flex-column">
+              <p>Insert timeline (Gantt Chart with overall timeline and milestones)</p>
+              <p>Include Gate Reviews, Proto Builds, Product Launch and SelNav Releases</p>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Milestone</th>
+                    <th>Due</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Proto 1 (SAT)</td>
+                    <td>2024-05-31 (in ## days)</td>
+                  </tr>
+                  <tr>
+                    <td>Proto 2 (WXF)</td>
+                    <td>2024-05-31 (in ## days)</td>
+                  </tr>
+                  <tr>
+                    <td>Prod Launch</td>
+                    <td>2024-05-31 (in ## days)</td>
+                  </tr>
+                  <tr>
+                    <td>SelNav</td>
+                    <td>2024-05-31 (in ## days)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-xl-6 d-flex">
+    <div class="row g-3 flex-fill">
+      <div class="col-12 col-md-6">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-fill flex-column">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="mb-1">Impacted Factories & Regions</h5>
+              </div>
+              <h4>TBA</h4>
+            </div>
+            <div class="d-flex flex-fill">
+              <csps-world-map [locationMarkerSize]="25" [selectedContinents]="impactedRegions" [coordinates]="impactedFactories"></csps-world-map>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-fill flex-column">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="mb-1">Roster</h5>
+              </div>
+              <h4>TBA</h4>
+            </div>
+            <div class="d-flex flex-fill">
+              TBA
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="mb-2">Financial Summary</h5>
+                <h6 class="text-body-tertiary">TBA</h6>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center pt-3 flex-1">
+              <!--<div class="echarts-paying-customer-chart" style="height: 100%; width: 100%; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;" _echarts_instance_="ec_1706695015555"><div style="position: relative; width: 328px; height: 144px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="328" height="144" style="position: absolute; left: 0px; top: 0px; width: 328px; height: 144px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div>-->
+            </div>
+            <div class="mt-3">
+              <!--<div class="d-flex align-items-center mb-2">
+                <div class="bullet-item bg-primary me-2"></div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Paying customer</h6>
+                <h6 class="text-body fw-semibold mb-0">30%</h6>
+              </div>
+              <div class="d-flex align-items-center">
+                <div class="bullet-item bg-primary-subtle me-2"></div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Non-paying customer</h6>
+                <h6 class="text-body fw-semibold mb-0">70%</h6>
+              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

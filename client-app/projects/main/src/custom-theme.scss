@@ -1,0 +1,34 @@
+// Ensure white background color
+$body-bg: white;
+
+// Define JCI Palettes
+// Refer to: http://mcg.mbitson.com/ for palette generator
+// JCI Palette colors available at: https://my.jci.com/sites/GlobalOffStrategicMktg/SitePages/Branding/Branding.aspx
+
+$blue: #00539E;
+/* $indigo not customized*/
+/* $purple not customized*/
+/* $pink not customized*/
+$red: #CA2339;
+$orange: #F37720;
+$yellow: #D5D537;
+$green: #8CC63E;
+$teal: #00B7A8;
+$cyan: #00BBE3;
+/* $white not customized*/
+/* $gray not customized*/
+/* $gray-dark not customized*/
+
+// Remove rounded borders
+$enable-rounded: false;
+
+// Indent list
+$IndentLefts: 0em, 1em, 2em, 3em, 4em, 5em, 6em, 7em, 8em;
+
+// Extended sizes
+$extendedSizes: ( 5: 5%, 10: 10%, 15: 15%, 20: 20% );
+
+// Rotate degrees
+$rotateDegrees: ( 45: 45deg, 90: 90deg, minus-45: -45deg, minus-90: -90deg );
+
+

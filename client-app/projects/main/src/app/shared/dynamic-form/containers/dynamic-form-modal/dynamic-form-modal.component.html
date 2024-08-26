@@ -1,0 +1,14 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">{{config.headerText}}</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="dismissForm('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <csps-dynamic-form [config]="config.fields" #form="dynamicForm" (submit)="submitForm($event)"></csps-dynamic-form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" *ngFor="let b of config.extraButtons" (click)="dismissForm(b.reason)" [disabled]="b.disabled" class="btn btn-secondary me-2">{{b.label}}</button>
+    <button type="button" *ngIf="!config.hideCloseButton" (click)="dismissForm('Close button')" class="btn btn-secondary me-2">{{config.closeText}}</button>
+    <button type="button" (click)="submitForm('OK')" [disabled]="!form.valid" class="btn btn-primary">{{config.submitText}}</button>
+  </div>
+</div>

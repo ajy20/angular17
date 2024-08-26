@@ -1,0 +1,42 @@
+{
+  "LANGUAGE": {
+    "ENGLISH": "Anglais",
+    "FRENCH": "Français",
+    "SPANISH": "Espagnol",
+    "CHINESE": "Chinois",
+    "GERMAN": "Allemand"
+  },
+  "TOPMENU": {
+    "PRODUCTS": "Produits",
+    "DOCUMENTATION": "Documentation",
+    "CHANGEMANAGEMENT": "Gestion du changement",
+    "ADMIN": "Administration",
+    "SEARCHPLACEHOLDER": "Recherche (Appuyer sur Entrée pour valider)"
+  },
+  "PRODUCTS": {
+    "PRODUCTS": "Produits",
+    "FAVOURITE": "Mes produits favoris",
+    "FILTER": "Filtrer..."
+  },
+  "PRODUCT": {
+    "SELNAV": {
+      "EMULATOR": {
+        "EMULATOR": "Emulateur Selection Navigator",
+        "BATCHMODE": "Mode 'Batch'",
+        "UNITMODE": "Mode 'Unit'",
+        "CONFIGANALYZER": "Analyseur de configuration",
+        "PREFERENCES": "Préférences",
+        "GENERATECRSFILE": "Generer le fichier CRS",
+        "RUNRATING": "Executer un rating sur dev 2",
+        "PRODUCTUNAVAILABLE": "Ce produit n'est pas disponible pour ces droits d'accès"
+      }
+    },
+    "PRICING": {
+      "EMULATOR": {
+        "EMULATOR": "Emulateur Prix",
+        "PREFERENCES": "Préférences",
+        "PRODUCTUNAVAILABLE": "Ce produit n'est pas disponible pour ces droits d'accès"
+      }
+    }
+  }
+}

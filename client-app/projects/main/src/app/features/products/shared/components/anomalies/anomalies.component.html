@@ -1,0 +1,15 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Anomalies Manager</h5>
+      <button type="button" class="close" aria-label="Close" (click)="dismissForm('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body d-flex" style="height:80vh;">
+      <csps-data-table [settings]="settings" class="d-flex flex-fill"></csps-data-table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="dismissForm('Close button')" class="btn btn-secondary">Close</button>
+    </div>
+  </div>
+  

@@ -1,0 +1,14 @@
+{
+  "TOPMENU": {
+    "PRODUCTS": "产品",
+    "DOCUMENTATION": "文档",
+    "CHANGEMANAGEMENT": "更换管理层",
+    "ADMIN": "行政",
+    "SEARCHPLACEHOLDER": "搜索（按 Enter 确认)"
+  },
+  "PRODUCTS": {
+    "PRODUCTS": "产品",
+    "FAVOURITE": "我最喜欢的产品",
+    "FILTER": "筛选..."
+  }
+}

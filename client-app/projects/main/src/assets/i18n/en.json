@@ -1,0 +1,69 @@
+{
+  "LANGUAGE": {
+    "ENGLISH": "English",
+    "FRENCH": "French",
+    "SPANISH": "Spanish",
+    "CHINESE": "Chinese",
+    "GERMAN": "German"
+  },
+  "TOPMENU": {
+    "PRODUCTS": "Products",
+    "DOCUMENTATION": "Documentation",
+    "CHANGEMANAGEMENT": "Change Management",
+    "CONFIGURATOR": "Order Configurator",
+    "TOOLS": "Tools",
+    "BOMGENERATOR": "BOM Generator",
+    "ECNCROSSCHECKINGASSISTANT": "ECN CrossChecking Assistant",
+    "HARNESSDRAWINGGENERATOR": "Harness Drawing Generator",
+    "VESSELDESIGNER": "Vessel Designer",
+    "ADMIN": "Admin",
+    "SEARCHPLACEHOLDER": "Search (Press Enter to validate)"
+  },
+  "PRODUCTS": {
+    "PRODUCTS": "Products",
+    "FAVOURITE": "My favourite products",
+    "FILTER": "Filter..."
+  },
+  "PRODUCT": {
+    "SELNAV": {
+      "EMULATOR": {
+        "EMULATOR": "Selection Navigator Emulator",
+        "BATCHMODE": "Batch Mode",
+        "UNITMODE": "Unit Mode",
+        "CONFIGANALYZER": "Configuration Analyzer",
+        "PREFERENCES": "Preferences",
+        "GENERATECRSFILE": "Generate CRS input file",
+        "RUNRATING": "Run rating on dev 2",
+        "PRODUCTUNAVAILABLE": "The product is not available to this entitlement"
+      }
+    },
+    "PRICING": {
+      "EMULATOR": {
+        "EMULATOR": "Pricing Emulator",
+        "PREFERENCES": "Preferences",
+        "PRODUCTUNAVAILABLE": "The product is not available to this entitlement"
+      }
+    },
+    "EOM": {
+      "EMULATOR": {
+        "EMULATOR": "EOM Emulator",
+        "PREFERENCES": "Preferences",
+        "PRODUCTUNAVAILABLE": "The product is not available to this entitlement"
+      }
+    },
+    "LEADTIME": {
+      "EMULATOR": {
+        "EMULATOR": "Lead Time Emulator",
+        "PREFERENCES": "Preferences",
+        "PRODUCTUNAVAILABLE": "The product is not available to this entitlement"
+      }
+    },
+    "WEIGHTING": {
+      "EMULATOR": {
+        "EMULATOR": "Weight Emulator",
+        "PREFERENCES": "Preferences",
+        "PRODUCTUNAVAILABLE": "The product is not available to this entitlement"
+      }
+    }
+  }
+}

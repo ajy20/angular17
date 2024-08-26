@@ -1,0 +1,9 @@
+<div class="input-group input-group-sm" (mouseleave)="showDropDown = false">
+  <input type="text" class="form-control form-control-sm" [placeholder]="placeholder" [disabled]="disabled" readonly [(ngModel)]="model" (click)="showDropDown=!showDropDown" />
+  <div class="drop-show" *ngIf="showDropDown">
+    <label *ngFor="let o of options">
+      <input type="checkbox" [(ngModel)]="o.selected" (change)="addOrRemove(o)" />
+      <span>{{o.value}}</span>
+    </label>
+  </div>
+</div>

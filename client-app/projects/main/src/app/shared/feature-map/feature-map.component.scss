@@ -1,0 +1,119 @@
+@import "../../../styles.scss";
+
+.epic-list {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+}
+
+.epic-box {
+  width: 200px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+  cursor: move;
+}
+
+.epic-header {
+  @extend .d-flex;
+  @extend .align-items-center;
+  @extend .justify-content-between;
+}
+
+.feature-list-container {
+  @extend .mb-2;
+  border: solid 1px #ccc;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+}
+
+.feature-list {
+  min-height: 60px;
+  background: white;
+  border-radius: 4px;
+}
+
+
+.feature-box {
+  @extend .blue-50-background;
+  @extend .blue-50-border;
+  @extend .m-2;
+  border-radius: 4px;
+  border: 1px solid;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  font-size: 14px;
+}
+
+.feature-adder {
+  @extend .fw-bold;
+  @extend .pb-2;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  background: white;
+  font-size: 14px;
+}
+
+.feature-placeholder {
+  @extend .gray-300-text;
+  @extend .gray-300-border;
+  @extend .m-2;
+  border-radius: 4px;
+  border: 1px dashed;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+
+
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+  height:0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.epic-box:last-child {
+  border: none;
+}
+
+.epic-list.cdk-drop-list-dragging .epic-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/*
+.feature-box:last-child {
+  border: none;
+}*/
+
+.feature-list.cdk-drop-list-dragging .feature-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

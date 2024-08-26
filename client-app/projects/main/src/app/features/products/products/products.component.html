@@ -1,0 +1,65 @@
+<csps-page-wrapper>
+  <ng-container body>
+    <csps-page-template>
+
+      <ng-container header>
+        Product Portfolio
+      </ng-container>
+
+      <ng-container toolbar>
+        <div class="input-group input-group-sm">
+          <input type="search" [placeholder]="('PRODUCTS.FILTER' | translate)" class="form-control form-control-sm" (input)="filterSubject$.next($any($event.target).value)" />
+          <div class="input-group-append">
+            <span class="input-group-text"><fa-icon [icon]="faSearch"></fa-icon></span>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container body>
+        <div class="col-12 mb-3 mt-2" *ngIf="favouriteProducts.length>0">
+          <h3>{{'PRODUCTS.FAVOURITE' | translate}}</h3>
+          <div class="row">
+            <div class="col-lg-1 col-md-4 col-sm-6" *ngFor="let product of favouriteProducts">
+              <div class="card h-100">
+                <img class="card-img-top pointer pt-2 px-2" [src]="product.defaultPictureUrl | secure | async" [routerLink]="[product.id]">
+                <div class="card-body pb-0">
+                  <div class="card-title d-flex justify-content-between">
+                    <h5 class="pointer" [routerLink]="[product.id]">{{product.name}}</h5>
+                    <fa-icon class="yellow-text pointer" [icon]="faStar" (click)="unmarkFavourite(product)"></fa-icon>
+                  </div>
+                  <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3 mt-2" *ngFor="let productType of productTypes">
+          <h3>{{productType.type}}</h3>
+          <div class="row">
+            <div class="col-lg-1 col-md-4 col-sm-6" *ngFor="let product of productType.products">
+              <div class="card h-100">
+                <img class="card-img-top pointer pt-2 px-2" [src]="product.defaultPictureUrl | secure | async" [routerLink]="[product.id]">
+                <div class="card-body pb-0">
+                  <div class="card-title d-flex justify-content-between">
+                    <h5 class="pointer" [routerLink]="[product.id]">{{product.name}}</h5>
+                    <fa-icon *ngIf="!product.favourite" class="pointer" [icon]="faStarEmpty" (click)="markFavourite(product)"></fa-icon>
+                    <fa-icon *ngIf="product.favourite" class="yellow-text pointer" [icon]="faStar" (click)="unmarkFavourite(product)"></fa-icon>
+                  </div>
+                  <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container footer>
+        <button type="button" class="btn btn-sm btn-link gray-600-text" [routerLink]="['data-bundler']">
+          <fa-icon class="pointer" [icon]="faFileArchive" [fixedWidth]="true"></fa-icon> Selection Navigator Data Bundles
+        </button>
+      </ng-container>
+
+    </csps-page-template>
+  </ng-container>
+</csps-page-wrapper>

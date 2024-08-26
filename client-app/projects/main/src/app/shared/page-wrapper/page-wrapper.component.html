@@ -1,0 +1,25 @@
+<div class="container-fluid h-100">
+  <div class="row flex-lg-row flex-lg-nowrap h-100">
+
+    <div role="button" class="d-flex d-lg-none py-2 align-items-center bg-body-tertiary text-body border-bottom" *ngIf="menuItems?.length">
+      <span class="me-auto">{{menuHeader}}</span>
+      <button class="btn btn-link p-0" (click)="isMenuCollapsed = !isMenuCollapsed">
+        <fa-icon [icon]="faBars"></fa-icon>
+      </button>
+    </div>
+
+    <csps-side-bar class="d-none d-lg-block col-lg-2 border-end bg-body-tertiary px-0" [header]="menuHeader" [quickLinks]="quickLinks" [menuItems]="menuItems" *ngIf="menuItems?.length"></csps-side-bar>
+
+    <div class="col-12 col-lg d-flex flex-column flex-fill min-height-0">
+      <ng-content select="[body]"></ng-content>
+      <!--<div class="row border-bottom py-3">
+        <h2 class="mb-0"><ng-content select="[header]"></ng-content></h2>
+      </div>
+      <div class="row flex-fill overflow-auto">
+        <div class="col h-100 d-flex flex-column">
+          <ng-content select="[body]"></ng-content>
+        </div>
+      </div>-->
+    </div>
+  </div>
+</div>

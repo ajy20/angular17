@@ -1,0 +1,15 @@
+<div class="dynamic-field row"  [formGroup]="group">
+  <label class="col-form-label" [ngClass]="'col-'+config.labelSize" *ngIf="config.labelSize!==0">{{ config.label }}</label>
+  <div [ngClass]="'col-'+ (12 - (config.labelSize||0))">
+    <div class="input-group input-group-sm">
+      <div class="input-group-prepend" *ngIf="config.prepend">
+        <span class="input-group-text" [innerHTML]="config.prepend"></span>
+      </div>
+      <input type="date" class="form-control" [formControlName]="config.name">
+      <div class="input-group-append" *ngIf="config.append">
+        <span class="input-group-text" [innerHTML]="config.append"></span>
+      </div>
+    </div>
+    <div class="invalid-feedback">Invalid message!</div>
+  </div>
+</div>
